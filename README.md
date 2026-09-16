@@ -35,13 +35,18 @@ Trois raisons, dans l'ordre d'importance.
 | `prix.py` | Extraction du prix dans le texte libre. 5 motifs, testés sur 8 formats réels de greffes. |
 | `collecte.py` | Appels à l'API, découpés par mois car l'offset plafonne à 10 000. Écrit un JSONL. |
 | `secteurs.py` | Classification sectorielle par mots-clés sur le champ `activite`. |
-| `barometre.py` | Agrégation en médianes et quartiles, avec seuil de publication. |
+| `barometre.py` | Agrégation en médianes et quartiles, avec seuil de publication et périmètre éditorial. |
+| `refresh.py` | Rafraîchissement : recalcule, compare aux chiffres publiés sur la page, exporte le CSV open data, sort la matière pour les posts. Ne publie rien. |
 
 ```bash
-python3 collecte.py 2025          # ~15 min, écrit data/bodacc-2025.jsonl
-python3 barometre.py 0            # baromètre tout marché
-python3 barometre.py 300000       # baromètre segment haut
+python3 collecte.py 2025             # ~15 min, écrit data/bodacc-2025.jsonl
+python3 barometre.py 300000          # agrégation du segment haut
+python3 refresh.py --annee 2026 --collecte   # cycle complet, avec diff
 ```
+
+Le rafraîchissement s'utilise via l'agent `passage-barometre` (`~/.claude/agents/`),
+qui lit le diff, arbitre s'il faut republier, et prépare la mise à jour de la page.
+Rien n'est publié sans validation.
 
 ## Ce que le prototype a mesuré sur 2025
 
