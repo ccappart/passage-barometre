@@ -15,14 +15,41 @@ from secteurs import classe
 
 SEUIL_CELLULE = 30   # transactions minimum pour publier une mediane
 
+# PERIMETRE EDITORIAL (arbitrage Charles, 16/09/2026)
+#
+# Le commerce de proximite est exclu du barometre. Raison : la valeur d'un bar,
+# d'une boulangerie, d'un salon de coiffure ou d'une boutique tient d'abord au
+# bail et a l'emplacement, pas a une capacite beneficiaire transmissible. C'est
+# une transaction immobiliere deguisee, pas une cession d'entreprise. Les y
+# melanger ecrase la mediane (108 200 EUR tous secteurs contre 657 500 EUR sans
+# eux sur le segment haut) et decrit un marche qui n'est pas celui de Passage.
+PROXIMITE = {
+    "Hôtellerie et restauration",
+    "Boulangerie et alimentation",
+    "Commerce de détail",
+    "Coiffure, beauté, bien-être",
+}
 
-def charge(chemin, prix_min=0):
+# La sante reste dans le tableau mais sort de la mediane annoncee : une officine
+# se valorise sur une licence et un chiffre d'affaires reglemente, pas comme une
+# PME ordinaire. Avec elle la mediane passe de 500 000 a 657 500 EUR, ce qui
+# ferait croire a un dirigeant industriel qu'il est tres en dessous du marche.
+HORS_MEDIANE = {"Santé et pharmacie"}
+
+
+def charge(chemin, prix_min=0, hors_proximite=True):
+    """Transactions exploitables. Par defaut, hors commerce de proximite."""
     out = []
     for l in open(chemin, encoding="utf-8"):
         x = json.loads(l)
-        if x["prix"] and x["prix"] >= prix_min:
-            x["secteur"] = classe(x["activite"])
-            out.append(x)
+        if not x["prix"] or x["prix"] < prix_min:
+            continue
+        x["secteur"] = classe(x["activite"])
+        if x["secteur"] == "Non classé":
+            continue
+        if hors_proximite and x["secteur"] in PROXIMITE:
+            continue
+        out.append(x)
     return out
 
 
@@ -71,9 +98,17 @@ if __name__ == "__main__":
         "prix_minimum_retenu": prix_min,
         "transactions_retenues": len(L),
         "seuil_publication_cellule": SEUIL_CELLULE,
-        "national": stats([x["prix"] for x in L]),
+        "perimetre": "hors commerce de proximite (CHR, boulangerie, détail, coiffure)",
+        # La mediane annoncee exclut aussi la sante, qui reste dans le detail.
+        "national": stats([x["prix"] for x in L if x["secteur"] not in HORS_MEDIANE]),
+        "national_hors_medianne_note": "santé et pharmacie exclue de cette médiane",
+        "national_toutes_familles": stats([x["prix"] for x in L]),
+        # Le detail sectoriel montre la sante, c'est un secteur comme un autre.
         "par_secteur": agrege(L, "secteur"),
-        "par_region": agrege(L, "region"),
+        # Les regions, elles, l'excluent : sa repartition geographique n'a rien
+        # a voir avec celle des PME et ferait ressortir des ecarts regionaux qui
+        # ne sont qu'une concentration d'officines.
+        "par_region": agrege([x for x in L if x["secteur"] not in HORS_MEDIANE], "region"),
         "secteur_x_region": croise(L, "secteur", "region"),
     }
     sortie = RACINE / "out"
