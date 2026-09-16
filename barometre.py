@@ -6,9 +6,11 @@ statistiquement defendable et l'exposer serait de la fausse precision.
 """
 import json
 import sys
+from pathlib import Path
 from collections import defaultdict
 
-sys.path.insert(0, "/Users/charlescappart/passage-barometre")
+RACINE = Path(__file__).resolve().parent
+sys.path.insert(0, str(RACINE))
 from secteurs import classe
 
 SEUIL_CELLULE = 30   # transactions minimum pour publier une mediane
@@ -62,7 +64,7 @@ def croise(lignes, a, b):
 
 if __name__ == "__main__":
     prix_min = int(sys.argv[1]) if len(sys.argv) > 1 else 0
-    L = charge("/Users/charlescappart/passage-barometre/data/bodacc-2025.jsonl", prix_min)
+    L = charge(RACINE / "data" / "bodacc-2025.jsonl", prix_min)
     res = {
         "millesime": 2025,
         "source": "BODACC, DILA, licence ouverte",
@@ -74,7 +76,9 @@ if __name__ == "__main__":
         "par_region": agrege(L, "region"),
         "secteur_x_region": croise(L, "secteur", "region"),
     }
-    chemin = f"/Users/charlescappart/passage-barometre/out/barometre-2025-min{prix_min}.json"
+    sortie = RACINE / "out"
+    sortie.mkdir(exist_ok=True)
+    chemin = sortie / f"barometre-2025-min{prix_min}.json"
     json.dump(res, open(chemin, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"transactions retenues : {len(L)}")
     print(f"cellules secteur      : {len(res['par_secteur'])}")

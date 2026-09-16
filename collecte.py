@@ -9,12 +9,14 @@ environ 4 000 annonces.
 """
 import json
 import sys
+from pathlib import Path
 import time
 import urllib.parse
 import urllib.request
 from calendar import monthrange
 
-sys.path.insert(0, "/Users/charlescappart/passage-barometre")
+RACINE = Path(__file__).resolve().parent
+sys.path.insert(0, str(RACINE))
 from prix import extrait
 
 BASE = ("https://bodacc-datadila.opendatasoft.com/api/explore/v2.1"
@@ -95,7 +97,9 @@ def annee(a, journal=True):
 if __name__ == "__main__":
     a = int(sys.argv[1]) if len(sys.argv) > 1 else 2025
     lignes = annee(a)
-    chemin = f"/Users/charlescappart/passage-barometre/data/bodacc-{a}.jsonl"
+    dossier = RACINE / "data"
+    dossier.mkdir(exist_ok=True)
+    chemin = dossier / f"bodacc-{a}.jsonl"
     with open(chemin, "w", encoding="utf-8") as f:
         for l in lignes:
             f.write(json.dumps(l, ensure_ascii=False) + "\n")
