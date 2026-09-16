@@ -1,0 +1,41 @@
+millesime,dimension,valeur,cessions,prix_median_eur,premier_quartile_eur,troisieme_quartile_eur,prix_minimum_retenu_eur,inclus_dans_mediane_nationale
+2025,national,"France entière, hors santé et pharmacie",1258,500000,360000,850000,300000,oui
+2025,secteur,Automobile,160,450000,330000,720000,300000,oui
+2025,secteur,BTP et construction,240,440000,350000,653640,300000,oui
+2025,secteur,Commerce de gros,148,500000,398289,990000,300000,oui
+2025,secteur,Immobilier,67,464659,360000,689975,300000,oui
+2025,secteur,Industrie et production,224,560000,400000,1465050,300000,oui
+2025,secteur,Santé et pharmacie,868,1200000,625000,1900000,300000,non
+2025,secteur,Services aux entreprises,240,560000,400000,1359778,300000,oui
+2025,secteur,Transport et logistique,179,525000,380000,830000,300000,oui
+2025,région,Auvergne-Rhône-Alpes,193,450000,350000,720000,300000,oui
+2025,région,Bourgogne-Franche-Comté,49,417500,340000,787493,300000,oui
+2025,région,Bretagne,80,650000,423271,1400000,300000,oui
+2025,région,Centre-Val de Loire,31,577495,435000,800000,300000,oui
+2025,région,Grand Est,97,480000,327000,728280,300000,oui
+2025,région,Hauts-de-France,85,525000,425000,850000,300000,oui
+2025,région,Normandie,52,520000,370000,720000,300000,oui
+2025,région,Nouvelle-Aquitaine,126,450000,345000,650000,300000,oui
+2025,région,Occitanie,103,500000,370000,779453,300000,oui
+2025,région,Pays de la Loire,78,480000,350000,769270,300000,oui
+2025,région,Provence-Alpes-Côte d'Azur,131,485000,353000,700000,300000,oui
+2025,région,Île-de-France,214,688006,401897,2050000,300000,oui
+2025,secteur x région,BTP et construction / Auvergne-Rhône-Alpes,51,420000,358000,700000,300000,oui
+2025,secteur x région,BTP et construction / Provence-Alpes-Côte d'Azur,33,400000,330000,540000,300000,oui
+2025,secteur x région,Commerce de gros / Île-de-France,35,711607,500000,1371000,300000,oui
+2025,secteur x région,Industrie et production / Île-de-France,50,1000000,450000,4326923,300000,oui
+2025,secteur x région,Santé et pharmacie / Auvergne-Rhône-Alpes,84,850000,480000,1500000,300000,non
+2025,secteur x région,Santé et pharmacie / Bourgogne-Franche-Comté,34,955000,480000,2266000,300000,non
+2025,secteur x région,Santé et pharmacie / Bretagne,46,1300000,552000,1850000,300000,non
+2025,secteur x région,Santé et pharmacie / Centre-Val de Loire,30,1200000,500000,2400000,300000,non
+2025,secteur x région,Santé et pharmacie / Grand Est,62,1425000,700000,2200000,300000,non
+2025,secteur x région,Santé et pharmacie / Hauts-de-France,85,1285000,950000,2064000,300000,non
+2025,secteur x région,Santé et pharmacie / Normandie,35,1750000,590000,2700000,300000,non
+2025,secteur x région,Santé et pharmacie / Nouvelle-Aquitaine,72,1250000,849774,1837500,300000,non
+2025,secteur x région,Santé et pharmacie / Occitanie,96,960000,613000,1850000,300000,non
+2025,secteur x région,Santé et pharmacie / Pays de la Loire,41,1350000,800000,2500000,300000,non
+2025,secteur x région,Santé et pharmacie / Provence-Alpes-Côte d'Azur,85,1037000,650000,1700000,300000,non
+2025,secteur x région,Santé et pharmacie / Île-de-France,177,1135000,600000,1800000,300000,non
+2025,secteur x région,Services aux entreprises / Auvergne-Rhône-Alpes,31,600000,450000,1065000,300000,oui
+2025,secteur x région,Services aux entreprises / Île-de-France,70,700000,394807,2300000,300000,oui
+2025,secteur x région,Transport et logistique / Auvergne-Rhône-Alpes,30,530000,330000,803000,300000,oui

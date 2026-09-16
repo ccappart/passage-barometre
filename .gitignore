@@ -1,3 +1,4 @@
 data/
 out/
+!out/datagouv/
 __pycache__/
