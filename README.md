@@ -1,10 +1,11 @@
-# Baromètre des cessions : prototype
+# Baromètre des prix de cession d'entreprises
 
-Chaîne complète qui transforme les annonces BODACC en chiffres publiables sur
-passage.ac. Construit le 16/09/2026 pour répondre à une question simple : est-ce
-que les chiffres tiennent avant d'investir dans les pages ?
+Chaîne complète qui transforme les annonces BODACC en chiffres publiables. Elle
+alimente la page [prix de vente d'une entreprise](https://passage.ac/vendre/prix-de-cession)
+de passage.ac.
 
-**Réponse : oui, avec une réserve de fond sur le segment couvert (voir plus bas).**
+Son intérêt : publier des **prix conclus**, là où le marché publie des méthodes
+de valorisation théoriques ou des prix demandés.
 
 ## Pourquoi le BODACC plutôt qu'un scraping de Fusacq ou Alvo
 
@@ -48,14 +49,36 @@ Le rafraîchissement s'utilise via l'agent `passage-barometre` (`~/.claude/agent
 qui lit le diff, arbitre s'il faut republier, et prépare la mise à jour de la page.
 Rien n'est publié sans validation.
 
-## Ce que le prototype a mesuré sur 2025
+## Périmètre
+
+C'est le choix éditorial central, et il explique l'écart avec les chiffres
+publiés ailleurs.
+
+**Le commerce de proximité est exclu** : hôtellerie et restauration, boulangerie
+et alimentation, commerce de détail, coiffure et esthétique. La valeur d'un bar
+ou d'une boutique tient au bail et à l'emplacement, pas à une capacité
+bénéficiaire qui survivrait au départ du dirigeant. C'est une opération
+immobilière déguisée en cession d'entreprise, et les inclure écrase la médiane.
+
+**La santé et la pharmacie** restent dans le détail sectoriel mais sortent de la
+médiane annoncée et du tableau régional : une officine se valorise sur une
+licence réglementée, et sa concentration géographique créait de faux écarts
+entre régions.
+
+## Résultats 2025
 
 - 47 758 annonces collectées, soit le compte exact renvoyé par l'API.
 - **71 % portent un prix exploitable**, soit 33 696 transactions.
-- Médiane nationale : **108 200 €**. Premier quartile 50 000 €, troisième 250 000 €.
-- 7 052 transactions à 300 000 € ou plus, 3 635 à 500 000 €, 1 394 au-delà du million.
-- Classifieur sectoriel : **85 % de couverture**, 12 familles.
-- **134 croisements secteur x région** dépassent le seuil de 30 transactions.
+- Après application du périmètre : 7 890 cessions d'entreprises, dont **2 126 à
+  300 000 € et plus**.
+- **Médiane publiée : 500 000 €** sur 1 258 transactions hors santé. Premier
+  quartile 360 000 €, troisième 850 000 €.
+- Classifieur sectoriel : **85 % de couverture**.
+- 8 secteurs et 12 régions dépassent le seuil de 30 transactions.
+
+Retirer 73 % du volume n'a pas fragilisé le baromètre : 8 secteurs franchissent
+toujours le seuil, et la médiane devient enfin représentative d'une cession
+d'entreprise.
 
 ## Règles de publication
 
@@ -66,21 +89,12 @@ Rien n'est publié sans validation.
   doit être affiché sur la page.
 - **Tout chiffre publié est daté et sourcé**, conformément à la règle standing.
 
-## La réserve, et elle est sérieuse
+## Pourquoi nos chiffres diffèrent des autres
 
-Le BODACC « ventes et cessions » est massivement du **fonds de commerce**, pas
-de la cession de titres de PME. Après correction du classifieur, l'hôtellerie
-restauration pèse encore 11 210 transactions sur 33 696, et la médiane nationale
-est à 108 200 €.
-
-L'ICP de Passage, c'est la PME à 500 k€ - 5 M€ de chiffre d'affaires. **Ce n'est
-pas le même marché.** Publier des centaines de pages sur le prix des fonds de
-commerce enfoncerait le site dans le segment que la décision stratégique écarte
-justement du commercial.
-
-D'où le filtre à 300 000 € : il ramène l'échantillon à 7 052 transactions dont
-la médiane monte à 500 000 €, et les 41 croisements publiables décrivent alors
-un marché qui ressemble à celui de Passage.
+Les agrégations qui circulent aboutissent à une médiane autour de 108 000 €.
+C'est arithmétiquement exact et analytiquement faux : près de 6 cessions sur 10
+au BODACC sont des fonds de commerce de proximité, qui tirent la médiane vers le
+bas et décrivent un marché immobilier plutôt qu'un marché d'entreprises.
 
 ## Limites connues
 
@@ -93,11 +107,20 @@ un marché qui ressemble à celui de Passage.
   fiabiliser, joindre le SIREN au NAF via `recherche-entreprises.api.gouv.fr`.
 - 2026 est incomplet à la date de construction, 32 083 annonces au 16/09.
 
-## Suite possible
+## Cadence
 
-1. Une page baromètre nationale, actualisée mensuellement.
-2. Les croisements les plus demandés, en respectant le seuil de 30.
-3. Republication du jeu agrégé en open data sur data.gouv.fr avec attribution à
-   passage.ac. C'est là qu'est le vrai levier : reprendre.cc a publié son index
-   BODACC sur data.gouv mais son sitemap ne compte que 20 URLs fonctionnelles et
-   zéro page programmatique. La donnée est prise, la couche SEO est libre.
+Arbitrée sur mesure, pas au feeling.
+
+- **Pas de page quotidienne** : personne ne cherche « les cessions du 16 septembre », et produire à grande échelle des pages à faible valeur est le motif que Google sanctionne.
+- **Pas de page mensuelle** non plus : la médiane mensuelle oscille de 100 000 € à 120 000 € avec un écart-type de 5,5 %, donc un commentaire mensuel décrirait du bruit. Et sur le segment retenu, seuls 3 à 5 secteurs atteignent le seuil de 30 sur un mois.
+- **Une page métier par mois**, le baromètre national rafraîchi, les pages millésime à l'année.
+
+## Suite
+
+1. Republication du jeu agrégé sur data.gouv.fr avec attribution à passage.ac.
+   C'est le levier de backlink du projet, et il n'est pas encore actionné.
+   reprendre.cc a publié son index BODACC là-bas mais son sitemap ne compte que
+   20 URLs fonctionnelles et aucune page programmatique : la donnée est prise,
+   la couche éditoriale est libre.
+2. Les pages métier, en commençant par celles dont la demande est mesurée.
+3. Jointure SIREN vers NAF pour fiabiliser la classification sectorielle.
