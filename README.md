@@ -16,9 +16,10 @@ Trois raisons, dans l'ordre d'importance.
    partie substantielle, et contre l'extraction répétée de parties non
    substantielles qui nuirait à son exploitation normale. Les CGU de Passage
    interdisent d'ailleurs exactement cela chez elle, article 5.
-2. **La qualité.** Fusacq et Alvo publient des prix *demandés* sur le marché
-   visible. Le BODACC publie des prix *conclus*, sur l'ensemble du marché, y
-   compris les cessions de gré à gré qui n'ont jamais été annoncées nulle part.
+2. **La qualité.** Les plateformes d'annonces publient des prix *demandés* sur
+   le marché visible. Le BODACC publie des prix *conclus*, sur l'ensemble du
+   marché, y compris les cessions de gré à gré qui n'ont jamais été annoncées
+   nulle part.
 3. **La traçabilité.** Chaque ligne conserve son `url_complete` vers bodacc.fr,
    donc n'importe quel chiffre publié est sourçable à la transaction près.
 
