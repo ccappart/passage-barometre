@@ -7,7 +7,7 @@ de passage.ac.
 Son intérêt : publier des **prix conclus**, là où le marché publie des méthodes
 de valorisation théoriques ou des prix demandés.
 
-## Pourquoi le BODACC plutôt qu'un scraping de Fusacq ou Alvo
+## Pourquoi le BODACC
 
 Trois raisons, dans l'ordre d'importance.
 
