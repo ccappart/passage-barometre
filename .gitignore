@@ -1,4 +1,4 @@
 data/
-out/
+out/*
 !out/datagouv/
 __pycache__/

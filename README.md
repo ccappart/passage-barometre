@@ -39,11 +39,22 @@ Trois raisons, dans l'ordre d'importance.
 | `secteurs.py` | Classification sectorielle par mots-clés sur le champ `activite`. |
 | `barometre.py` | Agrégation en médianes et quartiles, avec seuil de publication et périmètre éditorial. |
 | `refresh.py` | Rafraîchissement : recalcule, compare aux chiffres publiés sur la page, exporte le CSV open data, sort la matière pour les posts. Ne publie rien. |
+| `collecte_semestre.py` | Collecte bornée à un semestre, pour les millésimes intermédiaires. |
+| `barometre_semestre.py` | Agrégation d'un semestre et comparaison au même semestre de l'année précédente. |
+| `incertitude.py` | Intervalles de confiance par bootstrap, sur une médiane et sur un écart entre deux périodes. |
+| `export_semestre.py` | CSV open data du millésime semestriel, avec intervalles et verdict de significativité. |
+| `publie_maj.py` | Mise à jour du jeu data.gouv existant. Simulation par défaut, `--go` pour exécuter. |
 
 ```bash
 python3 collecte.py 2025             # ~15 min, écrit data/bodacc-2025.jsonl
 python3 barometre.py 300000          # agrégation du segment haut
 python3 refresh.py --annee 2026 --collecte   # cycle complet, avec diff
+
+python3 collecte_semestre.py 2026 1  # ~7 min, écrit data/bodacc-2026-s1.jsonl
+python3 barometre_semestre.py        # comparaison S1 2026 contre S1 2025
+python3 incertitude.py               # ce qui est un mouvement, ce qui est du bruit
+python3 export_semestre.py           # CSV open data du millésime semestriel
+python3 publie_maj.py --go           # met à jour le jeu data.gouv (clé dans l'environnement)
 ```
 
 Le rafraîchissement s'utilise via l'agent `passage-barometre` (`~/.claude/agents/`),
@@ -107,6 +118,30 @@ bas et décrivent un marché immobilier plutôt qu'un marché d'entreprises.
   et corrigé une inversion d'ordre entre boulangerie et restauration. Pour
   fiabiliser, joindre le SIREN au NAF via `recherche-entreprises.api.gouv.fr`.
 - 2026 est incomplet à la date de construction, 32 083 annonces au 16/09.
+
+## Millésime 2026-S1
+
+Premier millésime intermédiaire, publié le 18 septembre 2026.
+
+- 22 444 annonces sur le premier semestre 2026, 74 % avec un prix exploitable.
+- 676 cessions retenues hors santé, contre 684 sur le même semestre 2025.
+- **Médiane 495 000 €** contre 500 000 €, soit -1 %.
+- Sur 18 évolutions testées, **une seule ressort à 95 %**, ce qui est exactement
+  le nombre de fausses détections attendu quand on teste 18 cellules à ce seuil.
+  Aucun mouvement de marché ne peut donc être affirmé.
+
+Deux règles nouvelles, nées de ce millésime.
+
+**Un semestre ne se compare qu'au même semestre.** Le taux d'extraction du prix
+suit un profil saisonnier reproductible, de 87 % en janvier à 62 % en mai, et le
+même creux apparaît en 2025 et en 2026. Comparer un semestre à une année pleine
+mélangerait la saison et le marché.
+
+**L'incertitude se publie avec le chiffre.** Chaque médiane porte désormais son
+intervalle de confiance à 95 % par bootstrap, et chaque évolution son verdict de
+significativité. Sans cette colonne, un lecteur aurait titré sur le commerce de
+gros à +38 % ou la Bretagne à -46 %, qui sont l'un et l'autre des effets de
+taille d'échantillon.
 
 ## Cadence
 
