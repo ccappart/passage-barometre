@@ -12,6 +12,7 @@ from collections import defaultdict
 RACINE = Path(__file__).resolve().parent
 sys.path.insert(0, str(RACINE))
 from secteurs import classe
+from dedoublonne import dedoublonne
 
 SEUIL_CELLULE = 30   # transactions minimum pour publier une mediane
 
@@ -50,7 +51,8 @@ def charge(chemin, prix_min=0, hors_proximite=True):
         if hors_proximite and x["secteur"] in PROXIMITE:
             continue
         out.append(x)
-    return out
+    # Voir dedoublonne.py : une meme operation est publiee une fois par greffe.
+    return dedoublonne(out)
 
 
 def stats(valeurs):

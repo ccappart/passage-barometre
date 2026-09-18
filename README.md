@@ -44,6 +44,8 @@ Trois raisons, dans l'ordre d'importance.
 | `incertitude.py` | Intervalles de confiance par bootstrap, sur une médiane et sur un écart entre deux périodes. |
 | `export_semestre.py` | CSV open data du millésime semestriel, avec intervalles et verdict de significativité. |
 | `publie_maj.py` | Mise à jour du jeu data.gouv existant. Simulation par défaut, `--go` pour exécuter. |
+| `dedoublonne.py` | Une transaction, une ligne. Corrige les annonces multi-greffes qui portent chacune le prix total. |
+| `export_annuel.py` | CSV open data du millésime annuel, au schéma déjà publié. |
 
 ```bash
 python3 collecte.py 2025             # ~15 min, écrit data/bodacc-2025.jsonl
@@ -124,8 +126,8 @@ bas et décrivent un marché immobilier plutôt qu'un marché d'entreprises.
 Premier millésime intermédiaire, publié le 18 septembre 2026.
 
 - 22 444 annonces sur le premier semestre 2026, 74 % avec un prix exploitable.
-- 676 cessions retenues hors santé, contre 684 sur le même semestre 2025.
-- **Médiane 495 000 €** contre 500 000 €, soit -1 %.
+- 593 cessions retenues hors santé, contre 579 sur le même semestre 2025.
+- **Médiane 480 111 €** contre 481 000 €, soit -0,2 %.
 - Sur 18 évolutions testées, **une seule ressort à 95 %**, ce qui est exactement
   le nombre de fausses détections attendu quand on teste 18 cellules à ce seuil.
   Aucun mouvement de marché ne peut donc être affirmé.
@@ -136,6 +138,15 @@ Deux règles nouvelles, nées de ce millésime.
 suit un profil saisonnier reproductible, de 87 % en janvier à 62 % en mai, et le
 même creux apparaît en 2025 et en 2026. Comparer un semestre à une année pleine
 mélangerait la saison et le marché.
+
+**Une transaction ne se compte qu'une fois.** Une cession dont le fonds compte
+plusieurs établissements est publiée une fois par greffe concerné, et chaque
+annonce porte le prix total. Sans correction, une vente à 4 M€ répartie sur 9
+sites entrait 9 fois dans les agrégats. Le dédoublonnage fait tomber le millésime
+2025 de 1 258 à 1 076 cessions et sa médiane de 500 000 à 480 000 €, et la valeur
+échangée du premier semestre 2026 de 969 à 749 M€. Le défaut a été trouvé le
+18 septembre 2026 en préparant une vue des grosses transactions, et les deux
+millésimes ont été republiés le jour même. Voir `dedoublonne.py`.
 
 **L'incertitude se publie avec le chiffre.** Chaque médiane porte désormais son
 intervalle de confiance à 95 % par bootstrap, et chaque évolution son verdict de

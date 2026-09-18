@@ -1,6 +1,6 @@
 # Méthodologie du baromètre des prix de cession d'entreprises
 
-Document joint au jeu de données. Version 2, millésimes 2025 (année pleine) et 2026-S1, établie le 18 septembre 2026.
+Document joint au jeu de données. Version 3, millésimes 2025 (année pleine) et 2026-S1, établie le 18 septembre 2026.
 
 ## Source
 
@@ -19,6 +19,20 @@ Cinq motifs d'extraction sont appliqués, couvrant les écritures rencontrées (
 Taux d'extraction : **71 % sur 2025**, **74 % sur le premier semestre 2026**, 75 % sur le premier semestre 2025.
 
 Ce taux suit un profil saisonnier marqué et reproductible : 87 % en janvier 2025 et 84 % en janvier 2026, 65 % en mai 2025 et 62 % en mai 2026. C'est une raison de plus de ne comparer qu'à période identique.
+
+## Dédoublonnage
+
+Une cession dont le fonds compte plusieurs établissements est publiée **une fois par greffe concerné, et chaque annonce porte le prix total de l'opération**. Sans correction, une vente à 4 millions d'euros répartie sur 9 sites entre 9 fois dans les agrégats, avec 9 fois 4 millions d'euros.
+
+Clé de dédoublonnage : identifiant SIREN de l'annonce et prix exact, dans une fenêtre de 60 jours. Deux annonces qui partagent l'acquéreur et le montant à l'euro près, à moins de deux mois d'intervalle, décrivent la même opération.
+
+Vérification sur le premier semestre 2026 : 92 groupes concernés, dont 88 % étalés sur 30 jours ou moins, ce qui est la signature d'une publication multi-greffes et non de deux ventes distinctes.
+
+Le résultat ne dépend pas du réglage. Avec une fenêtre de 30, 60, 90 jours ou sans limite, la médiane 2025 tombe à 480 000 € dans les quatre cas, et le nombre de transactions varie de moins de 2 %. La fenêtre de 60 jours est retenue parce qu'elle est la plus conservatrice des quatre.
+
+Effet mesuré : le millésime 2025 passe de 1 258 à 1 076 cessions retenues et sa médiane de 500 000 à 480 000 €. L'effet sur les médianes est modéré, celui sur les comptages et les valeurs agrégées est massif : la valeur échangée du premier semestre 2026 tombe de 969 à 749 millions d'euros.
+
+Cette correction a été appliquée le 18 septembre 2026, après la première publication du jeu. Les chiffres antérieurs sont caducs.
 
 ## Classification sectorielle
 
@@ -42,7 +56,7 @@ La valeur de ces fonds tient au bail, à l'emplacement et au pas-de-porte, pas �
 
 Aucune médiane n'est publiée pour une cellule comptant moins de **30 transactions**. Un quartile calculé sur 8 ventes est de la fausse précision.
 
-Ce seuil mord davantage sur un semestre : les compteurs y sont divisés par deux. Sur le premier semestre 2025, la Normandie, le Centre-Val de Loire et la Bourgogne-Franche-Comté passent sous le seuil et ne sont donc pas publiés. Une évolution n'est calculée que lorsque les deux semestres franchissent le seuil.
+Ce seuil mord davantage sur un semestre : les compteurs y sont divisés par deux. Le dédoublonnage fait sortir quelques cellules supplémentaires : le millésime 2025 publie 36 lignes au lieu de 40, et le Centre-Val de Loire n'y figure plus. Une évolution n'est calculée que lorsque les deux semestres franchissent le seuil.
 
 ## Incertitude, ajoutée en version 2
 

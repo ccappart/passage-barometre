@@ -17,6 +17,7 @@ RACINE = Path(__file__).resolve().parent
 sys.path.insert(0, str(RACINE))
 from secteurs import classe
 from barometre import SEUIL_CELLULE, PROXIMITE, HORS_MEDIANE, stats
+from dedoublonne import dedoublonne
 
 
 def charge_periode(chemin, debut, fin, prix_min=0, hors_proximite=True):
@@ -35,7 +36,10 @@ def charge_periode(chemin, debut, fin, prix_min=0, hors_proximite=True):
         if hors_proximite and x["secteur"] in PROXIMITE:
             continue
         out.append(x)
-    return out
+    # Une transaction multi-etablissements est publiee une fois par greffe, chaque
+    # annonce portant le prix total : sans cette etape on compte le meme deal
+    # jusqu'a neuf fois.
+    return dedoublonne(out)
 
 
 def compte_brut(chemin, debut, fin):
