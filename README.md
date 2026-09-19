@@ -112,7 +112,24 @@ bas et décrivent un marché immobilier plutôt qu'un marché d'entreprises.
 
 ## Limites connues
 
-- Le prix du BODACC est le prix du **fonds ou des parts cédées**, pas une
+- **Le BODACC ne publie aucune cession de titres.** Vérifié le 19/09/2026 sur
+  7 018 annonces brutes (mars 2026 et septembre 2025) : les 15 catégories de
+  `acte.vente.categorieVente` portent toutes sur un fonds de commerce, un
+  établissement ou un apport, et aucune sur des parts sociales ou des actions.
+  Les 1 246 annonces qui mentionnent des parts sont des avis de projet de
+  fusion, publiés sans prix. La publicité légale ne couvre que les ventes de
+  fonds (protection des créanciers du vendeur) ; le prix d'une cession de
+  titres reste privé. Le baromètre mesure donc le marché des cessions **dont le
+  prix est public**, pas le marché de la transmission de PME. À énoncer sur la
+  page, c'est fait depuis le 19/09/2026 (section « Ce que le BODACC ne voit
+  pas »).
+- Repère externe pour le marché des cessions de titres, à citer plutôt que de
+  laisser croire que le BODACC le couvre : In Extenso Finance et Epsilon
+  Research, *Régions & Transmission*, 10e édition, **1 076 cessions
+  majoritaires de PME valorisées de 1 à 50 M EUR sur l'année 2025**.
+  Coïncidence sans rapport : c'est aussi le compte du millésime 2025 de ce
+  baromètre après dédoublonnage. Ne jamais confondre les deux dans un post.
+- Le prix du BODACC est le prix du **fonds ou des actifs cédés**, pas une
   valeur d'entreprise retraitée. Il ne dit rien de la dette reprise ni de la
   trésorerie. À énoncer sur la page.
 - La classification par mots-clés n'est pas une nomenclature NAF. Elle a été
