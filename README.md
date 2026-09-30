@@ -83,10 +83,10 @@ entre régions.
 
 - 47 758 annonces collectées, soit le compte exact renvoyé par l'API.
 - **71 % portent un prix exploitable**, soit 33 696 transactions.
-- Après application du périmètre : 7 890 cessions d'entreprises, dont **2 126 à
+- Après application du périmètre : 7 177 cessions d'entreprises, dont **1 880 à
   300 000 € et plus**.
-- **Médiane publiée : 500 000 €** sur 1 258 transactions hors santé. Premier
-  quartile 360 000 €, troisième 850 000 €.
+- **Médiane publiée : 480 000 €** sur 1 076 transactions hors santé. Premier
+  quartile 353 000 €, troisième 779 453 €.
 - Classifieur sectoriel : **85 % de couverture**.
 - 8 secteurs et 12 régions dépassent le seuil de 30 transactions.
 
