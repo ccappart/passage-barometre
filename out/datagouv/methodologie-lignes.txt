@@ -1,0 +1,48 @@
+METHODOLOGIE : cessions BODACC ligne a ligne
+Version du 2026-09-19.
+
+1. SOURCE
+API Opendatasoft de la DILA, jeu "annonces-commerciales", licence ouverte.
+Perimetre : familleavis="vente", soit les ventes et cessions.
+Millesimes couverts : 2025 complet, 2026 premier semestre.
+70 202 annonces.
+
+2. EXTRACTION DU PRIX
+Le BODACC ne porte pas de champ prix. Le montant est ecrit en clair dans le
+texte de l'annonce, dans des formes tres variables. Il est extrait par
+expressions regulieres puis normalise en euros.
+Taux de presence : 50 284 annonces sur 70 202, soit 71,6 %.
+Une annonce sans prix est CONSERVEE, avec prix_eur vide. Elle n'est pas
+supprimee : la supprimer biaiserait toute mesure de volume.
+
+3. CLASSIFICATION SECTORIELLE
+Le BODACC ne porte pas de code NAF. L'activite est decrite en francais par le
+greffe, en texte libre. La classification applique des mots-cles, du plus
+specifique au plus general, la premiere famille qui correspond l'emporte.
+13 familles. 26 180 lignes restent en "Non classe", soit 37,3 %.
+Ce taux se decompose, et la decomposition compte :
+ - 18 474 lignes, soit 70,6 % des non classes, n'ont AUCUNE activite a la
+   source. Le greffe n'a pas rempli le champ. Aucune classification n'est
+   possible, quelle que soit la methode.
+ - 7 706 lignes, soit 11,0 % du jeu, portent une activite que les mots-cles ne
+   reconnaissent pas. C'est la seule part reellement imputable a la methode.
+Mieux vaut une categorie vide qu'une categorie fausse.
+
+Autres champs incomplets a la source : activite vide sur 26,32 % des lignes,
+siren sur 0,56 %, ville sur 0,17 %. Region et departement sont toujours
+renseignes.
+
+4. CE QUE LE JEU NE DIT PAS
+Le prix publie au BODACC est le prix de cession du fonds ou des titres tel que
+declare. Il ne dit rien de la structure de l'operation, ni d'un eventuel
+complement de prix, ni de la dette reprise. Il ne doit pas etre lu comme une
+valorisation d'entreprise.
+Les cessions de titres de societes non soumises a publicite ne figurent pas
+dans le BODACC, et donc pas ici.
+
+5. TRACABILITE
+Chaque ligne conserve url_bodacc, qui renvoie a l'annonce d'origine. N'importe
+quel chiffre est verifiable a la transaction pres.
+
+6. CODE
+https://github.com/ccappart/passage-barometre
